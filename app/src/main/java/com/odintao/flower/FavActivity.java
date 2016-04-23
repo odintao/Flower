@@ -92,22 +92,25 @@ public class FavActivity extends Fragment {
     }
     public void onResume() {
         super.onResume();
-        adapter = new ShowListImgAdapter(getActivity(), movieList);
-        gridView.setAdapter(adapter);
 
+        System.out.println("---------on resume----------------");
         db = new DatabaseHandler(getActivity());
         allData = db.getAllData();
+        List<Movie> movieList2 = new ArrayList<Movie>();
         for(ObjectFav obj : allData) {
             Movie movie = new Movie();
             movie.setThumbnailUrl(obj.getImageurl());
             movie.setObjId(obj.getImageName());
-            movieList.add(movie);
+            movieList2.add(movie);
         }
         ArrayList<String> lstobjImg = new ArrayList<String>();
-        for (Movie mv : movieList) {
+        for (Movie mv : movieList2) {
             lstobjImg.add(mv.getThumbnailUrl());
         }
         allobjImg = lstobjImg.toArray(new String[0]);
-        adapter.notifyDataSetChanged();
+        adapter = new ShowListImgAdapter(getActivity(), movieList2);
+        gridView.invalidateViews();
+//        adapter.notifyDataSetChanged();
+        gridView.setAdapter(adapter);
     }
 }
