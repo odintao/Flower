@@ -40,13 +40,13 @@ public class FavActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_main, container, false);
+        return inflater.inflate(R.layout.fav_gridview, container, false);
     }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
-        gridView = (GridView)  getView().findViewById(R.id.gdVw);
+        gridView = (GridView)  getView().findViewById(R.id.fv_gridview);
         adapter = new ShowListImgAdapter(getActivity(), movieList);
         gridView.setAdapter(adapter);
 
