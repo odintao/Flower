@@ -1,6 +1,5 @@
 package com.odintao.flower;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,6 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,7 +36,7 @@ import java.io.IOException;
 /**
  * Created by Odin on 11/28/2015.
  */
-public class ShowImgActivity extends Activity {
+public class ShowImgActivity extends AppCompatActivity {
 
     ViewPager mViewPager;
     String imgUrl;
@@ -48,6 +48,7 @@ public class ShowImgActivity extends Activity {
     ImageView imageView;
     public DatabaseHandler db;
     String isFav="";
+    String actionResutl = "";
     @SuppressWarnings("unchecked")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,8 +62,10 @@ public class ShowImgActivity extends Activity {
         imgUrl = intent.getStringExtra("objImgUrl");
         allImgUrl = intent.getStringArrayExtra("allobjImg");
         isFav = intent.getStringExtra("ISFAV");
+        actionResutl = getResources().getText(R.string.ac_save).toString();
         if(isFav.equalsIgnoreCase("Y")){ // แสดงว่าเป็น FAVorite ให้แสดงปุ่มเป็น เลิกชื่นชอบ
-            btFv.setText("เลิกชื่นชอบ");
+            btFv.setText(getResources().getText(R.string.bt_unsave));
+            actionResutl = getResources().getText(R.string.ac_unsave).toString();
         }
 //        isPosition = allImgUrl.indexOf(imgUrl);
         isPosition = 0;
@@ -123,7 +126,7 @@ public class ShowImgActivity extends Activity {
         db = new DatabaseHandler(this);
         btSave = (Button) findViewById(R.id.btSave);
         btSave.setCompoundDrawablesWithIntrinsicBounds(
-                R.drawable.ic_action_share, 0, 0, 0);
+                R.drawable.ic_action_good, 0, 0, 0);
         btSave.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -142,8 +145,8 @@ public class ShowImgActivity extends Activity {
 //                        , Toast.LENGTH_SHORT).show();
 //                System.out.println("allImgUrl[mViewPager.getCurrentItem()===>"+tmp);
 //                onShareItem(imageView);
-                Toast.makeText(getApplicationContext(), "Save card!"
-                        , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), actionResutl
+                        , Toast.LENGTH_LONG).show();
 
 //                mViewPager.setDrawingCacheEnabled(true);
 //                Bitmap bm = Bitmap.createBitmap(mViewPager.getDrawingCache());

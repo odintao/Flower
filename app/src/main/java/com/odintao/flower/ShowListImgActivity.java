@@ -1,10 +1,10 @@
 package com.odintao.flower;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,14 +32,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ShowListImgActivity extends Activity {
+public class ShowListImgActivity extends AppCompatActivity{
 
     // Log tag
     private static final String TAG = ShowListImgActivity.class.getSimpleName();
 
     // Movies json url
-//    private static final String url = "http://freedomtime.xyz/android/flower/filesphp/php_flw_get_list_img.php?ilist=";
-    private static final String url = "http://freedomtime.xyz/android/gdn/filesphp/php_gdn_get_list_img.php?ilist=";
+    private static final String url = "http://freedomtime.xyz/android/flower/filesphp/php_flw_get_list_img.php?ilist=";
+//    private static final String url = "http://freedomtime.xyz/android/gdn/filesphp/php_gdn_get_list_img.php?ilist=";
     private ProgressDialog pDialog;
     private List<Movie> movieList = new ArrayList<Movie>();
     private ListView listView;

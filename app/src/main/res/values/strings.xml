@@ -15,11 +15,16 @@
     <string name="bt_ch">กดเลือกประเภทคำอวยพร</string>
     <string name="bt_share">ส่งต่อให้เพื่อน</string>
     <string name="bt_save">ชื่นชอบ</string>
+    <string name="bt_unsave">เลิกชื่นชอบ</string>
+    <string name="ac_save">เพิ่มไปยังชื่นชอบแล้ว</string>
+    <string name="ac_unsave">ลบออกจากชื่นชอบ เรียบร้อยแล้ว</string>
     <string name="action_quite">คุณต้องการจะออกจากโปรแกรมใช่หรือมไม่ </string>
     <string name="favorite_not_exists">โปรดเลือกชนิดคำอวยพร</string>
     <string name="title_share_program">แชร์รูปภาพโดย:</string>
     <string name="network_title">เครือข่ายอินเตอร์เน็ตมีปัญหา</string>
     <string name="network_not_con">เครือข่ายอินเตอร์เน็ตมีปัญหา โปรดตรวจสอบว่าท่านได้เปิดการติดต่อกับอินเตอร์เน็ตแล้ว</string>
+    <string name="tab_cate">หมวดหมู่</string>
+    <string name="tab_fav">ชื่นชอบ</string>
 
     <string name="other_app">แอปอื่นๆ จากเรา</string>
     <string name="share_app">แนะนำแอปนี้ให้กับเพื่อน </string>

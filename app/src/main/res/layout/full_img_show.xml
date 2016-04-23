@@ -19,7 +19,7 @@
         android:id="@+id/btShare"
         android:layout_above="@+id/llEmpty"
         android:layout_alignParentLeft="true"
-        android:background="#4c4ffb"
+        android:background="#c5fb4cc1"
         android:padding="5dp"
         />
 
@@ -30,7 +30,7 @@
         android:id="@+id/btSave"
         android:layout_above="@+id/llEmpty"
         android:layout_alignParentRight="true"
-        android:background="#4c4ffb"
+        android:background="#c5fb4cc1"
         android:padding="5dp"
         />
 

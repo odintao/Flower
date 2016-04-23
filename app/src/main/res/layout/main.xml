@@ -14,7 +14,7 @@
         android:text="@string/bt_ch"
         android:visibility="gone"
         android:typeface="normal"
-        android:padding="5dp"
+        android:padding="2dp"
         android:background="#4c4ffb"
         style="@android:style/Holo.ButtonBar" />
 
