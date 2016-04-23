@@ -11,7 +11,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,21 +21,12 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.odintao.adapter.FirstAdapter;
-import com.odintao.java.MySingleton;
 import com.odintao.model.ObjectPlaylist;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -100,45 +90,45 @@ public class FirstActivity extends Fragment {
         gridView.setAdapter(adapter);
 //        new RemoteDataTask().execute(allObjectPlaylist);
         System.out.println("************************************************************************************");
-        pDialog = new ProgressDialog(getActivity());
-        // Showing progress dialog before making http request
-        pDialog.setMessage(getResources().getString(R.string.load_data));
-        pDialog.show();
-        JsonArrayRequest movieReq = new JsonArrayRequest(GETDATAURL,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d(TAG, response.toString()); hidePDialog();
-//                        allObjectPlaylist = new ArrayList<ObjectPlaylist>();
-                        for (int i = 0; i < response.length(); i++) {                    // Parsing json
-                            try {
-                                JSONObject obj = response.getJSONObject(i);
-                                gpl = new ObjectPlaylist();
-                                String gameNm = obj.getString("flw_name");
-                                String gameImgUrl = obj.getString("flw_img_url");
-                                String gameId = obj.getString("flw_id");
-                                gpl.setobjId(gameId);
-                                gpl.setobjImgUrl(gameImgUrl);
-                                gpl.setobjName(gameNm);
-                                // ObjectPlaylist.add(gpl);
-                                System.out.println("==="+gameNm);
-                                allObjectPlaylist.add(gpl);
-
-                            } catch (JSONException e) {e.printStackTrace(); }
-                        }
-//                        adapter = new FirstAdapter(FirstActivity.this, allObjectPlaylist);
-                        adapter.notifyDataSetChanged();
-//                        gridView.setAdapter(adapter);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                hidePDialog();
-            }
-        });
-//        AppController.getInstance().addToRequestQueue(movieReq);
-        MySingleton.getInstance(getActivity()).addToRequestQueue(movieReq);
+//        pDialog = new ProgressDialog(getActivity());
+//        // Showing progress dialog before making http request
+//        pDialog.setMessage(getResources().getString(R.string.load_data));
+//        pDialog.show();
+//        JsonArrayRequest movieReq = new JsonArrayRequest(GETDATAURL,
+//                new Response.Listener<JSONArray>() {
+//                    @Override
+//                    public void onResponse(JSONArray response) {
+//                        Log.d(TAG, response.toString()); hidePDialog();
+////                        allObjectPlaylist = new ArrayList<ObjectPlaylist>();
+//                        for (int i = 0; i < response.length(); i++) {                    // Parsing json
+//                            try {
+//                                JSONObject obj = response.getJSONObject(i);
+//                                gpl = new ObjectPlaylist();
+//                                String gameNm = obj.getString("flw_name");
+//                                String gameImgUrl = obj.getString("flw_img_url");
+//                                String gameId = obj.getString("flw_id");
+//                                gpl.setobjId(gameId);
+//                                gpl.setobjImgUrl(gameImgUrl);
+//                                gpl.setobjName(gameNm);
+//                                // ObjectPlaylist.add(gpl);
+//                                System.out.println("==="+gameNm);
+//                                allObjectPlaylist.add(gpl);
+//
+//                            } catch (JSONException e) {e.printStackTrace(); }
+//                        }
+////                        adapter = new FirstAdapter(FirstActivity.this, allObjectPlaylist);
+//                        adapter.notifyDataSetChanged();
+////                        gridView.setAdapter(adapter);
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                VolleyLog.d(TAG, "Error: " + error.getMessage());
+//                hidePDialog();
+//            }
+//        });
+////        AppController.getInstance().addToRequestQueue(movieReq);
+//        MySingleton.getInstance(getActivity()).addToRequestQueue(movieReq);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
