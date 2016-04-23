@@ -71,6 +71,8 @@ public class FirstAdapter extends BaseAdapter {
             gridViewImgHolder.thumbNail.setImageUrl(m.getobjImgUrl(), imageLoader);
 //            thumbNail.setDefaultImageResId(R.mipmap.ic_waiting);
             gridViewImgHolder.thumbNail.setErrorImageResId(R.mipmap.ic_img_not_found);
+        }else{
+            gridViewImgHolder.thumbNail.setDefaultImageResId(R.mipmap.ic_img_not_found);
         }
         return view;
     }
