@@ -38,13 +38,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void AddtoFavorite(ObjectFav paramPojo)
+    public boolean AddtoFavorite(ObjectFav paramPojo)
     {
         SQLiteDatabase localSQLiteDatabase = getWritableDatabase();
         ContentValues localContentValues = new ContentValues();
         String query = "SELECT  id FROM " + TABLE_NAME +" where imgname='"+paramPojo.getImageName()+"'";
         Cursor cursor = localSQLiteDatabase.rawQuery(query, null);
-        // 3. go over each row, build football and add it to list
+        // Exists del it ; hasObject = true;
+        // not exists insert it ; hasObject = false;
         boolean hasObject = false;
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -61,6 +62,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }else{
             localSQLiteDatabase.delete("Favorite","imgname='"+paramPojo.getImageName()+"'",null);
         }
+        return hasObject;
     }
 
     public List<ObjectFav> getAllData()

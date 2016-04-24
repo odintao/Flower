@@ -140,37 +140,17 @@ public class ShowImgActivity extends AppCompatActivity {
                 int beginin = tmp.lastIndexOf("img");
                 String tRe = tmp.substring(beginin, lastin).replace("/", "_"); //img1_6.jpg
 
-                db.AddtoFavorite(new ObjectFav(tRe, tmp));
-//                Toast.makeText(getApplicationContext(), tRe
-//                        , Toast.LENGTH_SHORT).show();
-//                System.out.println("allImgUrl[mViewPager.getCurrentItem()===>"+tmp);
-//                onShareItem(imageView);
+                boolean bExists = db.AddtoFavorite(new ObjectFav(tRe, tmp));
+                if(bExists){ //true exists will delete and return msg del complete
+                    actionResutl = getResources().getString(R.string.ac_unsave);
+                }else{
+                    // false not exists will insert and return msg add complete
+                    actionResutl = getResources().getString(R.string.ac_save);
+                }
+
                 Toast.makeText(getApplicationContext(), actionResutl
                         , Toast.LENGTH_LONG).show();
 
-//                mViewPager.setDrawingCacheEnabled(true);
-//                Bitmap bm = Bitmap.createBitmap(mViewPager.getDrawingCache());
-//                mViewPager.setDrawingCacheEnabled(false);
-//                try {
-//
-//
-//                    File folder = Environment.getExternalStorageDirectory();
-//                    folder = new File(folder.getAbsolutePath() + "/"+getString(R.string.share_img_folder)+"/");
-//                    folder.mkdirs(); //returns false if the directory already existed
-////                    File file = new File(folder,"flower_" + System.currentTimeMillis() + ".jpg");
-//                    File file = new File(folder,"flower_" +tRe + ".jpg");
-//                    FileOutputStream out = new FileOutputStream(file);
-//                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//                    bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-//                    out.write(bos.toByteArray());
-//                    out.close();
-//                    Toast.makeText(getApplicationContext(), "Save card!"
-//                            , Toast.LENGTH_SHORT).show();
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                }  catch (IOException e) {
-//                    e.printStackTrace();
-//                }
             }
         });
 
