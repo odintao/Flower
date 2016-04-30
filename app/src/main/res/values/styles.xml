@@ -20,6 +20,7 @@
     <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/colorBG_pink</item>
         <item name="background">@color/colorBG_pink</item>
+
     </style>
 
     <style name="PhotoGridLayout">

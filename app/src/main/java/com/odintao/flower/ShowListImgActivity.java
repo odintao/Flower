@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -18,8 +19,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.odintao.adapter.ShowListImgAdapter;
 import com.odintao.java.MySingleton;
 import com.odintao.model.Movie;
@@ -36,7 +39,9 @@ public class ShowListImgActivity extends AppCompatActivity{
 
     // Log tag
     private static final String TAG = ShowListImgActivity.class.getSimpleName();
-
+    InterstitialAd interstitial;
+    boolean isFirstTime = true;
+    String objImgUrl;
     // Movies json url
     private static final String url = "http://freedomtime.xyz/android/flower/filesphp/php_flw_get_list_img.php?ilist=";
 //    private static final String url = "http://freedomtime.xyz/android/gdn/filesphp/php_gdn_get_list_img.php?ilist=";
@@ -53,6 +58,11 @@ public class ShowListImgActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.mipmap.ic_launcher);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         gridView = (GridView) findViewById(R.id.gdVw);
 //        listView = (ListView) findViewById(R.id.list);
@@ -105,19 +115,27 @@ public class ShowListImgActivity extends AppCompatActivity{
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-                TextView c = (TextView) v.findViewById(R.id.txtUrl_dtl);
-                String objImgUrl = c.getText().toString();
-                Intent intent = new Intent(getApplicationContext(),
-                        ShowImgActivity.class);
-                intent.putExtra("objImgUrl", objImgUrl);
-                intent.putExtra("allobjImg", allobjImg);
-                intent.putExtra("ISFAV", "N");
-                startActivity(intent);
+         TextView c = (TextView) v.findViewById(R.id.txtUrl_dtl);
+         objImgUrl = c.getText().toString();
+         if(isFirstTime){
+           // load first time show popup
+            displayInterstitial();
+          }else{
+            nextLevel();
+          }
+
+//                Intent intent = new Intent(getApplicationContext(),
+//                        ShowImgActivity.class);
+//                intent.putExtra("objImgUrl", objImgUrl);
+//                intent.putExtra("allobjImg", allobjImg);
+//                intent.putExtra("ISFAV", "N");
+//                startActivity(intent);
             }
         });
 
         //Todo load admob
         showAd();
+        showAdPopup();
     }
     @Override
     public void onDestroy() {
@@ -186,6 +204,70 @@ public class ShowListImgActivity extends AppCompatActivity{
             adView.loadAd(adRequest);
         } else {
             showAdTest();
+        }
+    }
+
+    private void showAdPopup()
+    {
+
+        // Create the interstitial.
+        interstitial = new InterstitialAd(getApplicationContext());
+        interstitial.setAdUnitId(getResources().getString(R.string.popup_ad_unit_id));
+        // Create an ad request.
+        AdRequest.Builder adRequest2 = new AdRequest.Builder();
+        if (getResources().getString(R.string.production).equalsIgnoreCase("N")) {
+ 	/* ************  for test only ************************
+ 	adRequest2.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
+ 	****************************************************** */
+            adRequest2.addTestDevice("B695E9C704D69B46BDDB734DDA56673B");
+        }
+
+
+        interstitial.loadAd(adRequest2.build());
+        // Set an AdListener.
+        interstitial.setAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                super.onAdFailedToLoad(errorCode);
+//                closeApplication();
+            }
+
+            public void onAdLoaded() {
+//				displayInterstitial();
+            }
+
+            @Override
+            public void onAdClosed() {
+                isFirstTime = false;
+                nextLevel();
+            }
+
+        });
+    }
+    public void nextLevel(){
+
+        Intent intent = new Intent(getApplicationContext(),
+                ShowImgActivity.class);
+        intent.putExtra("objImgUrl", objImgUrl);
+        intent.putExtra("allobjImg", allobjImg);
+        intent.putExtra("ISFAV", "N");
+        startActivity(intent);
+
+
+    }
+
+    public void displayInterstitial() {
+        // Show the interstitial if it is ready. Otherwise, proceed to the next level
+        // without ever showing it.
+        if (interstitial != null) {
+            if(interstitial.isLoaded()){
+                interstitial.show();
+            }else{
+                nextLevel();
+            }
+        } else {
+            nextLevel();
+
         }
     }
 }

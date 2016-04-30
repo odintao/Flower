@@ -11,6 +11,8 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -39,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 /**
@@ -58,7 +61,6 @@ public class FirstActivity extends Fragment {
     ObjectPlaylist spinnerGpl; // for spinner
     ProgressDialog mProgressDialog;
     private static final String GETDATAURL = "http://freedomtime.xyz/android/flower/filesphp/php_flw_get_menu.php";
-
     String[] gameName;
     String[] allGameName;
     String[] allGameId;
@@ -90,8 +92,15 @@ public class FirstActivity extends Fragment {
 
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.main);
+        final String strL = Locale.getDefault().getLanguage() ;    // en
+        System.out.println(" Language ======================"+strL);
 
-        // spinner = (Spinner) findViewById(R.id.spinner1);
+
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setLogo(R.mipmap.ic_launcher);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         ObjectPlaylist = new ArrayList<ObjectPlaylist>();
         newObjectPlaylist= new ArrayList<ObjectPlaylist>();
         gridView = (GridView) getView().findViewById(R.id.gridView1);
@@ -112,7 +121,11 @@ public class FirstActivity extends Fragment {
                             try {
                                 JSONObject obj = response.getJSONObject(i);
                                 gpl = new ObjectPlaylist();
-                                String gameNm = obj.getString("flw_name");
+                                String gameNm = obj.getString("flw_name_en");
+                                if(strL.equalsIgnoreCase("th")){
+                                    gameNm = obj.getString("flw_name");
+                                }
+
                                 String gameImgUrl = obj.getString("flw_img_url");
                                 String gameId = obj.getString("flw_id");
                                 gpl.setobjId(gameId);

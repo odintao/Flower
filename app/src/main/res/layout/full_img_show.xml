@@ -21,6 +21,7 @@
         android:layout_alignParentLeft="true"
         android:background="#c5fb4cc1"
         android:padding="5dp"
+        android:layout_marginLeft="15dp"
         />
 
     <Button
@@ -31,6 +32,7 @@
         android:layout_above="@+id/llEmpty"
         android:layout_alignParentRight="true"
         android:background="#c5fb4cc1"
+        android:layout_marginRight="15dp"
         android:padding="5dp"
         />
 
